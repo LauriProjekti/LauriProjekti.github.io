@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  div#app
+    div.container.flow-text
+      div.row
+        div.col.s6
+          h2.center= title
+          section(v-if="message.length")
+            p= message
+      form(action="/login", method="post")
+        div.row
+          div.col.s6
+            label(for="email") E-mail
+             input(name="email", type="text", class="validate", placeholder="Your email")
+          div.col.s6
+        div.row
+          div.col.s6
+            label(for="password") Password
+            input(name="password", type="text", class="validate", placeholder="Your password")
+          div.col.s6
+        div.row
+          div.col.s6
+            button(class="btn waves-effect waves-light", type="submit", name="action") Login
+          div.col.s6

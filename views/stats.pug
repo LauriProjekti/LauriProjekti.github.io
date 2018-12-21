@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  div#app
+    div#editor
+    a(class="waves-effect waves-light btn-small deep-purple accent-4 right",  id="dlbtn") PDF
+    div.flow-text.container.section
+      div.center.margin-bottom
+        h1 Statistics
+        p Click on player name to display statistics
+      div.row
+        div.col.l1
+        div.col.s12.l10.margin-bottom
+          table.highlight.deep-purple.lighten.grey.darken-3#table-style
+            thead
+              tr
+                th Player
+                th Wins
+            tbody(v-for="(stat, index) in stats")
+              tr
+                td(id="hover-select", v-on:click="showInfo(index)")
+                  p {{ stat.email || stat.facebook }}
+                td
+                  p {{ stat.wins }}
+        div.col.l1
+        div.col.s12.l5.m12
+          canvas(id="chartContainer", height="370", width="370")
+        div.col.s0.l2.m0
+        div.col.s12.l5.m12
+          canvas(id="chartContainer2", height="370", width="370")
+
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js")
+  script(src="https://canvasjs.com/assets/script/canvasjs.min.js")
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js")
+  script(src="./javascripts/statsScript.js")
+  script(src="./javascripts/pdfScript.js")
