@@ -1,0 +1,55 @@
+extends layout
+
+block content
+  div#app
+    div.flow-text.section
+      div.row
+        div.col.s2
+          if user
+            if user.local.email
+              p Logged in as: 
+                span#email= user.local.email
+            if user.twitter.displayName
+              p Twitter ID:
+                span= user.twitter.displayName
+            if user.facebook.name
+              p Logged in as: 
+                span#facebook= user.facebook.name
+            br
+            a(href="/logout", class="waves-effect waves-light btn-small deep-purple accent-4") Logout
+            
+        div.center.col.s8
+          h1.center Tic Tac Toe
+          div(v-if="over")
+            a(href="/", class="waves-effect waves-light btn-small deep-purple accent-4") New Game
+          div(v-else)
+            p(class="center") {{message}}
+        div.col.s2
+      div.section.row.container
+        if user
+          div.col.s2
+        else
+          div(class="col s2 grey darken-3", style="padding:15px; border-radius:10%;")
+            p Login or register with:
+            a(href="/login", class="waves-effect waves-light btn-small deep-purple accent-4", id="login") Login
+              i(class="material-icons left") person
+            a(href="/signup", class="waves-effect waves-light btn-small deep-purple accent-4") Signup
+              i(class="material-icons left") person
+            a(href="/auth/facebook", class="btn-small indigo") Facebook
+              span(class="fa fa-facebook")
+            a(href="/auth/twitter", class="fa fa-twitter")
+        div(class="col l8 m10 s10 center" id="game-container")
+          canvas(id="myCanvas", class="z-depth-4", v-bind:height="canvasHeight", v-bind:width="canvasWidth")
+        div.col.s12.l2.m12.stats-container
+          div(v-for="stat in stats")
+            div(v-if="stat.email == email || stat.facebook == facebookName")
+              h4.center-align Stats
+              div.divider
+              p Wins: {{ stat.wins }}
+              div.divider
+              p Losses: {{ stat.losses }}
+              div.divider
+              p Draws: {{ stat.draws }}
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js")
+  script(src="./javascripts/indexScript.js")
